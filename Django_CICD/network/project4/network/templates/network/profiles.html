@@ -1,0 +1,20 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+{% block body %}
+    <form>
+        <input id="username" placeholder="username">
+        <input type="submit" value="Search" class="btn btn-dark">
+    </form>
+    <div id="result" style="padding-bottom: 20px; padding-top: 10px;">
+    </div>
+    {% for user in users %}
+        <div class="alert alert-dark" role="alert">
+            <a href="{% url 'profile' user.username %}" style="font-size: 20px; color:black">{{user.username}}</a>
+        </div>
+    {% endfor %}
+{% endblock %}
+
+{% block script %}
+<script src="{% static 'network/search.js' %}"></script>
+{% endblock %}

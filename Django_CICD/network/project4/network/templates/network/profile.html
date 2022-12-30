@@ -1,0 +1,130 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+
+{% block body %}
+<div class="alert alert-secondary" role="alert" style="opacity: 0.5;">
+<h1>{{user_profile.username}}</h1>
+<h3>email: {{user_profile.email}}</h2>
+    
+{% if followers %}
+<h3> following: {{totalfollowing}}</h2>
+{% else %}
+following None
+{% endif %}
+    
+{% if followers %}
+<h3 data-followers="{{totalfollowers}}" id="followers_count"> followers: {{totalfollowers}}</h2>
+{% else %}
+No followers
+{% endif %}
+
+{% if request.user != user_profile %}
+{% if is_following %}
+<button class="btn btn-outline-danger follow_button" data-username="{{user_profile.username}}" id="{{user_profile.username}}">unfollow</button>
+{% else %}
+<button class="btn btn-outline-success follow_button" data-username="{{user_profile.username}}" id="{{user_profile.username}}">follow</button>
+{% endif %}
+{% endif %}
+</div>
+
+<h3>Posts:</h2>
+
+
+<div class="all-post">
+
+    {% if request.user == user_profile %}
+    <!--New Post -->
+    <div class="post-form">
+        <form id="post-form">
+            <strong>{{request.user.username}}: </strong>
+            <textarea id="post-content" placeholder="Type a new post..." style="width: 60%;"></textarea>
+            <input type="submit" class="btn btn-info" id="submitButton" style="margin-bottom: 30px ;" />
+        </form>
+        <div id="result" style="color:tomato;">
+            <!-- in case of error sending message here-->
+        </div>
+    </div>
+    <!-- Edit post -->
+    <div class="edit-form">
+        <form id="edit-form">
+            <strong>{{request.user.username}}: </strong>
+            <textarea id="edit-content" placeholder="Edit post..." style="width: 60%;">Content</textarea>
+            <input type="hidden" value="post-id" id="post_id">
+            <input type="submit" class="btn btn-info" value="edit" id="editButton" style="margin-bottom: 30px ;" />
+        </form>
+        <div id="result_edit" style="color:tomato;">
+            <!-- in case of error sending message here-->
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Posts -->
+    <div class="posts-all" style="align-items: center; display: flex; flex-direction: column;">
+        {% for post in page_obj %}
+        <div class="card" style="width: 80vw; padding-top: 15px;" id="card-{{post.id}}">
+            <div class="card-body" style="color: black; " >
+                <h5 class="card-title"><a href="{% url 'profile' post.user %}">{{post.user}}:</a></h5>
+                <h5 class="card-title">at: {{post.timestamp}}</h5>
+                <h5 class="card-text" id="content-{{post.id}}">{{ post.content }}</h5>
+                    {% if user == post.user %}
+                    <button class="btn btn-warning" data-id="{{post.id}}" style="margin-right: 10px;">Edit Post</a>
+                    {% endif %}
+                    
+                    {% for key, value in total_likes.items %}
+                        {% if key == post.id %}
+                            {% for ids, liked in likeds.items %}
+                                {% if ids == post.id %}
+                                    {% if liked %}
+                                        <button class="btn btn-danger like_button"  data-id="{{post.id}}" data-likes="{{value}}" id="{{post.id}}">unlike: {{value}}</button>
+                                    {% else %}
+                                        <button class="btn btn-primary like_button"  data-id="{{post.id}}" data-likes="{{value}}" id="{{post.id}}">like: {{value}}</button>
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+
+            </div>
+        </div>
+        <br>
+        {% endfor %}
+
+        <!-- Pagination -->
+        <div class="pagination">
+            <span class="step-links">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+
+                        {% if page_obj.has_previous %}
+                        <li class="page-item"><a class="page-link" href="?page=1">&laquo; first</a></li>
+                        <li class="page-item"><a class="page-link"
+                                href="?page={{ page_obj.previous_page_number }}">previous</a></li>
+                        {% endif %}
+
+                        {% if page_obj.has_next %}
+                        <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">next</a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">last
+                                &raquo;</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </span>
+        </div>
+        <div>
+            <span class="current" style="color: black;">
+                <strong>{{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.</strong>
+            </span>
+        </div>
+
+    </div>
+</div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script src="{% static 'network/profile.js' %}"></script>
+<script src="{% static 'network/like.js' %}"></script>
+{% endblock %}
