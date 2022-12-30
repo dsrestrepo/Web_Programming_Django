@@ -1,0 +1,22 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    Search Results
+{% endblock %}
+
+{% block body %}
+    <h2>Your search "{{value}}" was not found</h2>
+    <h2>Try with: </h2>
+
+    <ul>
+        {% for substring in substrings %}
+            <li> <a href="/wiki/{{substring}}"> {{ substring }}</a> </li>
+            {% empty %}
+            <h4>sorry, there are no conicidences, you can see the list of entries at:</h4>
+            <ul>
+                <li><a style="font-size: 30px;" href="{% url 'index' %}">Home</a></li>
+            </ul>
+        {% endfor %}
+    </ul>
+
+{% endblock %}

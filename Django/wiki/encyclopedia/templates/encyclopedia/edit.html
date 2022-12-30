@@ -1,0 +1,39 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+{{title}}
+{% endblock %}
+{%block head %}
+<style>
+    .formDiv {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+    }
+
+    #id_editBody {
+        height: 450px;
+    }
+
+    .button {
+        margin-left: 5%;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        background-color: rgb(94, 89, 94);
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+
+<h1>Edit Page {{title}}:</h1>
+<form  method="POST">
+    <div class="formDiv">
+        {% csrf_token %}
+        {{editform}}
+    </div>
+    <div>
+        <input style="margin-left: auto;" class="button" type="submit">
+    </div>
+</form>
+{% endblock %}

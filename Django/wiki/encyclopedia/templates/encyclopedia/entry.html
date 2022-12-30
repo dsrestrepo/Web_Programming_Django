@@ -1,0 +1,25 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+{{search}}
+{% endblock %}
+
+{% block body %}
+
+
+{% if searchBody != None %}
+
+{{bodyText|safe}}
+
+<a href="/edit/{{search}}">Edit Page</a>
+{% else %}
+
+<h1> {{search}}</h1>
+<div>
+    <h1 style="color: red; text-align:center;">Error 404</h1>
+    <h2 style="text-align:center;">Sorry your search was not found :( </h2>
+    <h2 style="text-align:center;">Please try other search </h2>
+</div>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+New Page
+{% endblock %}
+{%block head %}
+<style>
+    .formDiv {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+    }
+
+    #id_pageTitle {
+        width: 30%;
+    }
+
+    #id_pageBody {
+        height: 200px;
+    }
+
+    .button {
+        margin-left: 5%;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        background-color: rgb(94, 89, 94);
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+
+<h1>New Page:</h1>
+{% if message %}
+<p style="color: red;">this title already exists!!</p>
+{% endif %}
+<form action="{% url 'newPage'%}" method="POST">
+    <div class="formDiv">
+        {% csrf_token %}
+        {{newform}}
+    </div>
+    <div>
+        <input style="margin-left: auto;" class="button" type="submit">
+    </div>
+</form>
+
+{% endblock %}
