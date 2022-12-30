@@ -1,8 +1,8 @@
 Commerce Web Site:
 
-Commerce main interface:
-[![See the web page here!](https://github.com/dsrestrepo/Web_Programming_Django/blob/main/HTML_%26_CSS/google%20search.png)]([https://www.youtube.com/watch?v=K_JTUli5PRI))
+Commerce Adding New Product Interface:
+[![See the web page here!](https://github.com/dsrestrepo/Web_Programming_Django/blob/main/SQL_Models/commerce%20adding%20product.png)](https://www.youtube.com/watch?v=K_JTUli5PRI)
 
 
-Google Images:
-[![See the web page here!](https://github.com/dsrestrepo/Web_Programming_Django/blob/main/HTML_%26_CSS/google%20images.png)]([https://www.youtube.com/watch?v=5hVBJVK205M](https://www.youtube.com/watch?v=AqvPmonSn7o))
+Commerce List of Products Interface:
+[![See the web page here!](https://github.com/dsrestrepo/Web_Programming_Django/blob/main/SQL_Models/commerce%20interface.png)](https://www.youtube.com/watch?v=K_JTUli5PRI)
