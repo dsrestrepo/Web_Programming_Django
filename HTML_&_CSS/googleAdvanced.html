@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="google.png" type="image/png" />
+    <title>Advanced Search</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        #googleAdvImg {
+            margin-right: auto;
+        }
+
+        #advancedTitle {
+            font-family: arial, sans-serif;
+            color: #d93025;
+            font-size: 20px;
+            margin-left: 30px;
+            margin-top: 25PX;
+            margin-bottom: 25PX;
+            margin-right: auto;
+        }
+        #advancedSearchButton{
+            color: #fff;
+            background-color: #4d90fe;
+            height: 30px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div style="background: #f1f1f1;" class="container2">
+        <div id="googleAdvImg">
+            <img style="margin-top: 10px;" src="googleLogo.png" alt="google image" width="110">
+        </div>
+        <a class="buttonSearch" href="googleImages.html"> Google Image </a>
+        <a class="buttonSearch" href="index.html"> Google Search </a>
+    </div>
+
+    <div style="align-content: left; border-bottom: 1px solid #ebebeb;" class="container2">
+        <label id="advancedTitle">
+            Advanced Search
+        </label>
+    </div>
+    <div id=AdvancedDivF>
+        <form action="https://www.google.com/search">
+            <div class="part1" style="border-bottom: 1px solid #ebebeb;">
+                <div class="searchBoxDiv">
+                    <div class="itemsDiv1" style="font-size:16px">
+                        <span>Find pages with...</span>
+                    </div>
+                    <div class="itemsDiv2"></div>
+                    <div class="itemsDiv3" style="font-size: 14px;">
+                        To do this in the search box.
+                    </div>
+                </div>
+                <div class="searchBoxDiv">
+                    <div class="itemsDiv1">
+                        <label>all these words:</label>
+                    </div>
+                    <div class="itemsDiv2">
+                        <input class="searchBarAdv" type="text" name="as_q">
+                    </div>
+                    <div class="itemsDiv3">
+                        Type the important words: tri-colour rat terrier
+                    </div>
+                </div>
+                <div class="searchBoxDiv">
+                    <div class="itemsDiv1">
+                        <label>this exact word or phrase:</label>
+                    </div>
+                    <div class="itemsDiv2">
+                        <input class="searchBarAdv" type="text" name="as_epq">
+                    </div>
+                    <div class="itemsDiv3">
+                        Put exact words in quotes: "rat terrier"
+                    </div>
+                </div>
+                <div class="searchBoxDiv">
+                    <div class="itemsDiv1">
+                        <label>any of these words:</label>
+                    </div>
+                    <div class="itemsDiv2">
+                        <input class="searchBarAdv" type="text" name="as_oq">
+                    </div>
+                    <div class="itemsDiv3">
+                        Type OR between all the words you want: miniature OR standard
+                    </div>
+                </div>
+
+                <div class="searchBoxDiv">
+                    <div class="itemsDiv1">
+                        <label>none of these words:</label>
+                    </div>
+                    <div class="itemsDiv2">
+                        <input class="searchBarAdv" type="text" name="as_eq">
+                    </div>
+                    <div class="itemsDiv3">
+                        Put a minus sign just before words that you don't want: -rodent, -"Jack Russell"
+                    </div>
+                </div>
+
+                <div class="searchBoxDiv" style="margin-bottom: 20px;">
+                    <div class="itemsDiv1">
+                        <label>numbers ranging from:</label>
+                    </div>
+                    <div class="itemsDiv22">
+                        <div style="width: 41%;">
+                            <input class="searchBarAdv" type="text" name="as_nlo" style="width: 85%;">
+
+                        </div>
+                        <div style="margin-left: 5%; font-size: 16px; width: 10%;">
+                            to
+                        </div>
+                        <div style="width: 41%;">
+                            <input class="searchBarAdv" type="text" name="as_nhi" style="width: 85%; ">
+                        </div>
+                    </div>
+                    <div class="itemsDiv3">
+                        Put two full stops between the numbers and add a unit of measurement: 10..35 kg, £300..£500,
+                        2010..2011
+                    </div>
+                </div>
+            </div>
+            <div class="part2">
+                <div class="searchBoxDiv">
+                    <div class="itemsDiv1" style="font-size:16px"></div>
+                    <div class="itemsDiv23" >
+                        <input id="CIGjud" name="tbs" type="hidden">
+                        <input value="Advanced Search" type="submit" id="advancedSearchButton">
+                    </div>
+                    <div class="itemsDiv3" style="font-size: 14px;"></div>
+                </div>
+            
+            </div>
+
+        </form>
+    </div>
+
+</body>
+
+</html>

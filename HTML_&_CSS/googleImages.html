@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="google.png" type="image/png" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <title>Images Search</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .sep {
+            display: flex;
+            width: 100%;
+            height: wrap;
+            margin: auto auto;
+            flex-direction: row;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container2">
+        <a class="buttonSearch" href="index.html"> Google Search </a>
+        <a class="buttonSearch" href="googleAdvanced.html"> Google Advanced </a>
+    </div>
+    <div class="container">
+        <div class="searchDiv">
+            <img src="googleimg.png" alt="google image" width="400" style="max-width: 100%;">
+        </div>
+        <form class="searchDiv" action="https://google.com/search">
+            <div class="sep">
+                <input class=searchBar placeholder="  Google Images Search..." type="text" name="q">
+                <input type="hidden" name="tbm" value="isch">
+                <button type="submit" value="Search" class="glyphicon glyphicon-search" aria-hidden="true"> </button>
+            </div>
+
+        </form>
+    </div>
+</body>
+
+</html>
