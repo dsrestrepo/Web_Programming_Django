@@ -1,0 +1,31 @@
+{% extends "auctions/layout.html" %}
+
+{% block style %}
+<style>
+    #id_productName, #id_startingBid, #id_productDescription, #id_url, #id_category {
+        border: 1px solid aqua;
+        background-color:ghostwhite;
+    }
+    .submitButton {
+        border-radius: 15px;
+        margin-top: 2%;
+    }
+    .divForm {
+        display: flex;
+        flex-direction: column;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<h1>Welcome {{user.username}}</h1>
+
+<form action="{% url 'createListing' %}" method="POST">
+    <div class="divForm">
+        {% csrf_token %}
+        {{form}}
+        <input type="hidden" name="user_seller" value="{{user.id}}">
+        <input class="submitButton" type="submit" value="Send">
+    </div>
+</form>
+{% endblock %}

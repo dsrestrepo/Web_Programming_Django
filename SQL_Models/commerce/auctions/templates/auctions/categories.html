@@ -1,0 +1,93 @@
+{% extends "auctions/layout.html" %}
+{% load static %}
+
+{% block style %}
+<style>
+    #div1 {
+        background-color: darkslategray;
+        background-image: url("{% static 'auctions/rubber-grip.png' %}");
+    }
+    .row {
+        margin-bottom: 15px;
+        margin-top: 15px;
+    }
+    body{color: white;}
+    .col-lg-12,
+    .col-lg-6 {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    #id_category{
+        width: 40%;
+        margin-right: 2%;
+        margin-left: 2%;
+        border-radius: 5px;
+    }
+    .submitButton {
+        border-radius: 15px;
+        background-color: gainsboro;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+
+<div id=div1>
+    <div style="margin-bottom:25px; width: 100%;">
+    <h2 style="margin: 10px; ">Select a category: </h2>
+    <div style=" color: black; margin-bottom:25px; display: flex; flex-shrink: 0; ">
+    <form method="GET" action="{% url 'categories' %}" style="display: flex; width: 100%;" >
+    {{form}}
+    <input type="submit" value="filter by category" style="width: 20%;" class="submitButton">
+    </form >
+    </div>
+    </div>
+    <div class="row">
+
+        {% for product in auctionListing %}
+        {% if product.category == category %}
+            {% if product.state == 1 %}<!-- verify if state of product is active--> 
+            <div class="col-lg-6">
+                <img src="{{product.url}}" alt="{{product.productName}}" width="240"
+                    style="border: solid 2px black; background-color: blanchedalmond;">
+                <h2>{{product.productName}}:</h2>
+                <div style="padding-right: 15%; padding-left: 15%; ">
+                    <p>{{product.productDescription}}</p>
+                </div>
+                <p> product by: {{product.user_seller}} at: {{product.startingBid}}$</p>
+                <p>now at:</p>
+
+                {% for bid in bidsL %}
+                    {%if bid.product == product %}
+                    {% with actual_price=bid.price %}
+                    
+                {% endwith%} 
+                    {% endif %}
+                {% empty %}
+                <p>there are no bids now</p>    
+                {% endfor %}
+                {%if actual_price %}
+                <p> {{actual_price}} $ </p>
+                {% else %}
+                <p>{{product.startingBid}}$</p>
+                {% endif %}
+                <p><a style="color: green; background-color: white;" class="btn btn-secondary" href="{% url 'listingPage' product.id %}"
+                    role="button">See the product</a></p>
+
+                {% if forloop.counter|divisibleby:2 %}
+            </div>
+    </div>
+    <div class="row"> <!-- Create New row -->
+                {% else %}
+            </div>
+                {% endif %}
+            {% endif %}
+        {% endif %}
+        {% endfor %}
+    </div>
+</div>
+
+</div>
+
+{% endblock %}

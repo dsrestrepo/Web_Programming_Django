@@ -1,0 +1,147 @@
+{% extends "auctions/layout.html" %}
+{% load static %}
+
+{% block style %}
+<style>
+    body {
+        color: white;
+    }
+
+    .div1 {
+        background-color:darkslategray;
+        background-image: url("{% static 'auctions/rubber-grip.png' %}");
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .button_f{
+        padding: 5px 5px 5px 5px;
+        margin: 5px;
+        border: solid 1px black;
+        border-radius: 10px;
+    }
+    #id_price{
+        margin-left: 0%;
+    }
+    a:link {
+        color: green;
+        background-color: transparent;
+        text-decoration: none;
+    }
+    a:visited {
+        color: black;
+        background-color: transparent;
+        text-decoration: none;
+    }
+    a:hover {
+        color: black;
+        background-color: transparent;
+        text-decoration: underline;
+    }  
+    .div_item{
+        padding-right: 30%; 
+        padding-left: 30%; 
+        margin-top: 15px; 
+        display: flex; 
+        align-items: center; 
+        flex-direction: column;
+    }
+    .comment{
+        border-radius: 10px;
+        border: 1px solid black;
+        background-color:blanchedalmond;
+    }
+</style>
+
+{% endblock %}
+
+{% block body %}
+<div>
+    <!-- Owner interface -->
+    {% if auctionListing.user_seller == user %}
+    <h2 style="color: black;">  You are the owner! </h2>
+    
+    {% if auctionListing.state %}
+    <form action="{% url 'listingPage' auctionListing.id  %}" method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="state" value="False">
+        <input type="hidden" name="type_form" value="state_form">
+        <input type="submit" value="accept the offer" class="button_f" style="background-color: green;">
+    </form>
+    {% else %}
+    <h3>the auction is over</h3>
+    {% endif %}
+    {% endif %}
+</div>
+
+<div class="div1">    
+
+    <!-- watchlist -->
+    {% if user.is_authenticated %}
+        <a href="{% url 'watchList' auctionListing.id %}" class="button_f"
+        style="background-color: tomato; color: black;"> remove of watch list</a>
+        <a href="{% url 'watchList' auctionListing.id %}" class="button_f"
+        style="background-color:seagreen;">Add to watch list</a>
+    {% endif %}
+
+    <!-- product description -->
+    <h1>{{auctionListing.productName}}</h1>
+    <img src="{{auctionListing.url}}" alt="{{auctionListing.productName}}" width="240"
+        style="border: solid 2px black; background-color: blanchedalmond;">
+
+    <div class="div_item" >
+        <p>description: </p>
+        <p>{{auctionListing.productDescription}}</p>
+    </div>
+    <div class="div_item" >
+    <p>by {{auctionListing.user_seller}}</p>
+    <p> starting price at: {{auctionListing.startingBid}}$</p>
+    </div>
+    <!-- bids -->
+    {% if auctionListing.state %}
+        {% if message %}
+        <p style="color: yellow;">{{message}}</p>
+        {% endif %}
+        
+        {% if bids %}
+        <p>Actual price: {{bids.price}}$ by: {{bids.user}}</p>
+        {% else %}
+        <p>There are no bids by now</p>
+        {% endif %}
+
+        {% if user.is_authenticated %}
+        <form action="{% url 'listingPage' auctionListing.id  %}" method="POST">
+            {% csrf_token %}
+            {{bidsForm}}
+            <input type="hidden" name="type_form" value="bid_form">
+            <input type="submit" value="Send" class="button_f">
+        </form>
+        {% endif %}
+    {% else %}
+        {% if bids.user == user %}
+        <h2 style="color: seagreen;">YOU ARE THE WINER WITH: {{bids.price}}$</h2>
+        {% else %}
+        <h2 style="color: tomato;"> This bid has ended, the winer is: {{bids.user}} with: {{bids.price}}$</h2>
+        {% endif %}
+    {% endif %}        
+</div>
+<!-- comments -->
+<div style="display: flex; flex-direction: column; align-items: center; color: black;">
+    <h3> comments: </h3>
+
+    {% for comment in comments %}
+        <div style="padding: 3px; border-radius: 10px; margin: 5px 5px 5px 5px; border: solid 1px gray; width: 50%; background-color: aliceblue;">
+            <p><strong>{{comment.user}}: {{comment.comment}}</strong></p>
+        </div>
+    {% empty %}
+        <p> <strong> No Comments now... </strong></p>
+    {% endfor %}
+    <p>  add your comments {{user.username}}: </p>
+    <form method="POST" action="{% url 'listingPage' auctionListing.id  %}" style="display: flex; flex-direction: column; width: 60%;">
+        {% csrf_token %}
+        {{commentForm}}
+        <input type="hidden" name="type_form" value="comment_form">
+        <input type="submit" value="Add comment" class="button_f">
+    </form>
+</div>
+{% endblock %}
